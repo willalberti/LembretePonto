@@ -50,10 +50,10 @@ public class MainActivity extends AppCompatActivity {
 
         //o formulario é resetado quando o app identifica o mudança de dia
         String DataAtual = new SimpleDateFormat("dd/MM/yyyy").format(new Date());
-        //if(getPersistValue("tdata").equalsIgnoreCase(DataAtual)==false) {
+        if(getPersistValue("tdata").equalsIgnoreCase(DataAtual)==false) {
             setPersistValue("tdata", new SimpleDateFormat("dd/MM/yyyy").format(new Date()));
             resetComponents();
-        //}
+        }
 
         //Exibe data atual na tela
         TextView tdata = findViewById(R.id.txtData);
