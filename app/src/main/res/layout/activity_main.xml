@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <Button
+        android:id="@+id/bntEntrada"
+        android:layout_width="168dp"
+        android:layout_height="43dp"
+        android:layout_marginTop="96dp"
+        android:onClick="registrarEntrada"
+        android:text="Entrada"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.811"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/bntSaida"
+        android:layout_width="168dp"
+        android:layout_height="43dp"
+        android:layout_marginTop="308dp"
+        android:onClick="registrarSaida"
+        android:text="Saída"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.81"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtSaida"
+        android:layout_width="100dp"
+        android:layout_height="26dp"
+        android:layout_marginTop="316dp"
+        android:text="Saida"
+        app:layout_constraintEnd_toStartOf="@+id/bntSaida"
+        app:layout_constraintHorizontal_bias="0.278"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtFimAlmoco"
+        android:layout_width="100dp"
+        android:layout_height="26dp"
+        android:layout_marginTop="244dp"
+        android:text="fim do almoço"
+        app:layout_constraintEnd_toStartOf="@+id/bntFimAlmoco"
+        app:layout_constraintHorizontal_bias="0.278"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtInicioAlmoco"
+        android:layout_width="100dp"
+        android:layout_height="26dp"
+        android:layout_marginTop="176dp"
+        android:text="Inicio  doAlmoco"
+        app:layout_constraintEnd_toStartOf="@+id/bntInicioAlmoco"
+        app:layout_constraintHorizontal_bias="0.278"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/bntFimAlmoco"
+        android:layout_width="168dp"
+        android:layout_height="43dp"
+        android:layout_marginTop="236dp"
+        android:onClick="fimAlmoco"
+        android:text="Fim Almoço"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.81"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/bntInicioAlmoco"
+        android:layout_width="168dp"
+        android:layout_height="43dp"
+        android:layout_marginTop="168dp"
+        android:onClick="inicioAlmoco"
+        android:text="Inicio Almoço"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.81"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtEntrada"
+        android:layout_width="100dp"
+        android:layout_height="26dp"
+        android:layout_marginTop="104dp"
+        android:text="Hora inicial"
+        app:layout_constraintEnd_toStartOf="@+id/bntEntrada"
+        app:layout_constraintHorizontal_bias="0.278"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtData"
+        android:layout_width="275dp"
+        android:layout_height="38dp"
+        android:layout_marginTop="28dp"
+        android:text="Data"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.457"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imgSino"
+        android:layout_width="43dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="36dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.073"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bntSaida"
+        app:srcCompat="@drawable/sino" />
+
+    <TextView
+        android:id="@+id/txtLembrete"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="44dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/imgSino"
+        app:layout_constraintTop_toBottomOf="@+id/bntSaida" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
