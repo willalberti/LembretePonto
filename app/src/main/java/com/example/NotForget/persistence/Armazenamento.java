@@ -1,4 +1,4 @@
-package com.example.myfirstapplication.persistence;
+package com.example.NotForget.persistence;
 
 import android.content.Context;
 import android.content.SharedPreferences;

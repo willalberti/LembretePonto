@@ -1,4 +1,4 @@
-package com.example.myfirstapplication;
+package com.example.NotForget;
 
 import org.junit.Test;
 

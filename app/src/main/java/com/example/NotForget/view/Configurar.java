@@ -1,22 +1,17 @@
-package com.example.myfirstapplication.view;
+package com.example.NotForget.view;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.myfirstapplication.R;
-import com.example.myfirstapplication.business.*;
+import com.example.NotForget.R;
+import com.example.NotForget.business.*;
 
 public class Configurar extends Activity {
 

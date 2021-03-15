@@ -1,18 +1,14 @@
-package com.example.myfirstapplication.business;
+package com.example.NotForget.business;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
-import android.util.Log;
-import android.view.View;
 
-import com.example.myfirstapplication.R;
-import com.example.myfirstapplication.domain.AlarmReceiver;
-import com.example.myfirstapplication.domain.Data;
-import com.example.myfirstapplication.domain.NotificationDialog;
-import com.example.myfirstapplication.persistence.*;
+import com.example.NotForget.domain.AlarmReceiver;
+import com.example.NotForget.domain.NotificationDialog;
+import com.example.NotForget.persistence.*;
 
 import androidx.annotation.RequiresApi;
 

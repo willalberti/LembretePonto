@@ -1,4 +1,4 @@
-package com.example.myfirstapplication.domain;
+package com.example.NotForget.domain;
 
 public class Data {
     private String Entrada;

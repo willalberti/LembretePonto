@@ -1,4 +1,4 @@
-package com.example.myfirstapplication.domain;
+package com.example.NotForget.domain;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -6,9 +6,6 @@ import android.content.Intent;
 import android.util.Log;
 
 
-import com.example.myfirstapplication.domain.NotificationDialog;
-
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class AlarmReceiver extends BroadcastReceiver {
