@@ -137,28 +137,32 @@ public class MainActivity extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void registrarEntrada(View v){
-        bsLembrar.registrarEntrada();
+        bsLembrar.registrarEntrada(null);
         updateViewComponetState();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void registrarSaida(View v){
-        bsLembrar.registrarSaida();
+        bsLembrar.registrarSaida(null);
         updateViewComponetState();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void inicioAlmoco(View v){
-        bsLembrar.registrarInicioAlmoco();
+        bsLembrar.registrarInicioAlmoco(null);
          updateViewComponetState();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void fimAlmoco(View v){
-        bsLembrar.registrarFimAlmoco();
+        bsLembrar.registrarFimAlmoco(null);
         updateViewComponetState();
     }
 
+    public void irConfigurar(View v){
+        Intent intent = new Intent(this, Configurar.class);
+        startActivity(intent);
+    }
 
 
 

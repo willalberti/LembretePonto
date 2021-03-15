@@ -5,10 +5,12 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
+import android.util.Log;
 import android.view.View;
 
 import com.example.myfirstapplication.R;
 import com.example.myfirstapplication.domain.AlarmReceiver;
+import com.example.myfirstapplication.domain.Data;
 import com.example.myfirstapplication.domain.NotificationDialog;
 import com.example.myfirstapplication.persistence.*;
 
@@ -36,28 +38,41 @@ public class Lembrar {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public void registrarEntrada(){
+    public void registrarEntrada(Date pData){
+        Date dt;
+
+        if (pData==null)
+            dt= new Date();
+        else
+            dt=pData;
 
         String currentTimeString;
 
         //armazena data de entrada na SharedPreferences para calcular a data de saida
-        currentTimeString = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(new Date());
+        currentTimeString = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(dt);
         arm.setPersistValue("dtEntradaTT", currentTimeString,context);
 
         //armazena data de entrada na SharedPreferences para exibir no textView
-        currentTimeString = new SimpleDateFormat("HH:mm:ss").format(new Date());
+        currentTimeString = new SimpleDateFormat("HH:mm:ss").format(dt);
         arm.setPersistValue("Entrada", currentTimeString,context);
     }
 
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public void registrarInicioAlmoco(){
+    public void registrarInicioAlmoco(Date pData){
+
+        Date dt;
+        if (pData==null)
+            dt= new Date();
+        else
+            dt=pData;
+
         String currentTimeString;
 
-        currentTimeString = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(new Date());
+        currentTimeString = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(dt);
         arm.setPersistValue("dtInicioAlmocoTT", currentTimeString,this.context);
 
-        currentTimeString = new SimpleDateFormat("HH:mm:ss").format(new Date());
+        currentTimeString = new SimpleDateFormat("HH:mm:ss").format(dt);
         arm.setPersistValue("InicioAlmoco", currentTimeString,this.context);
 
         //invoca notificação para lembrar retorno do almoço
@@ -65,21 +80,32 @@ public class Lembrar {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public void registrarFimAlmoco(){
+    public void registrarFimAlmoco(Date pData){
+        Date dt;
+        if (pData==null)
+            dt= new Date();
+        else
+            dt=pData;
 
-        String currentTimeString = new SimpleDateFormat("HH:mm:ss").format(new Date());
+        String currentTimeString = new SimpleDateFormat("HH:mm:ss").format(dt);
         arm.setPersistValue("FimAlmoco", currentTimeString,this.context);
 
         //invoca notificação para lembrar a saida
+        this.cancelarAlarme("retornoAlmoco");
         this.lembrarSaida();
     }
 
 
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public void registrarSaida(){
+    public void registrarSaida(Date pData){
+        Date dt;
+        if (pData==null)
+            dt= new Date();
+        else
+            dt=pData;
 
-        String currentTimeString = new SimpleDateFormat("HH:mm:ss").format(new Date());
+        String currentTimeString = new SimpleDateFormat("HH:mm:ss").format(dt);
         arm.setPersistValue("Saida", currentTimeString,this.context);
 
     }
@@ -97,7 +123,7 @@ public class Lembrar {
         if (tipo.equals("saida")) {
             Intent intent = new Intent(this.context, AlarmReceiver.class);
             intent.putExtra("chave", "saida");
-            PendingIntent alarmIntent = PendingIntent.getBroadcast(this.context, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+            PendingIntent alarmIntent = PendingIntent.getBroadcast(this.context, 1, intent, PendingIntent.FLAG_CANCEL_CURRENT);
             AlarmManager alarmMgr = (AlarmManager) this.context.getSystemService(Context.ALARM_SERVICE);
             alarmMgr.cancel(alarmIntent);
         }
@@ -108,7 +134,8 @@ public class Lembrar {
     //metodo invocado quando o inicio do ponto é registrado programando um lembrete para 58 minutos
     private void lembrarRetornoAlmoco(){
         try {
-
+            //cancelar o alarme atual antes de criar um novo
+            this.cancelarAlarme("retornoAlmoco");
 
             AlarmManager alarmMgr = (AlarmManager) this.context.getSystemService(Context.ALARM_SERVICE);
             Intent intent = new Intent(this.context, AlarmReceiver.class);
@@ -116,11 +143,17 @@ public class Lembrar {
 
             intent.putExtra("chave","retornoAlmoco");
             PendingIntent alarmIntent = PendingIntent.getBroadcast(this.context, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+
+
+
+            //obeem dada da entrada
+            SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
             Calendar c = Calendar.getInstance();
-            c.setTimeInMillis(System.currentTimeMillis());
+            c.setTime(formato.parse(arm.getPersistValue("dtInicioAlmocoTT", this.context)));
+
             c.add(Calendar.MINUTE, 58);
-            //c.add(Calendar.SECOND, 5);
-            alarmMgr.set(AlarmManager.RTC_WAKEUP,  c.getTimeInMillis(), alarmIntent);
+            //c.add(Calendar.SECOND, 10);
+            alarmMgr.set(AlarmManager.RTC_WAKEUP,  c.getTimeInMillis(), alarmIntent); //dtInicioAlmocoTT
 
             //armazena a data que sera lembrado
             arm.setPersistValue("dtRemFimAlmoco", new SimpleDateFormat("HH:mm:ss").format(c.getTime()),this.context);
@@ -136,6 +169,8 @@ public class Lembrar {
     private void lembrarSaida() {
 
         try {
+            //cancelar o alarme atual antes de criar um novo
+            this.cancelarAlarme("saida");
 
             //recupera registro de alarme do sistema
             AlarmManager alarmMgr = (AlarmManager) this.context.getSystemService(Context.ALARM_SERVICE);
@@ -147,7 +182,7 @@ public class Lembrar {
             intent.putExtra("chave", "saida");
 
             //istancia uma mensagem broacast para o sistema anfroid
-            PendingIntent alarmIntent = PendingIntent.getBroadcast(this.context, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+            PendingIntent alarmIntent = PendingIntent.getBroadcast(this.context, 1, intent, PendingIntent.FLAG_CANCEL_CURRENT);
 
             //obeem dada da entrada
             SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
@@ -156,7 +191,7 @@ public class Lembrar {
 
             //adiciona 8h e 58 min a data de entrada
             c.add(Calendar.MINUTE, 538);
-            //c.add(Calendar.SECOND, 10);
+            //c.add(Calendar.SECOND, 20);
 
 
             //programa o alarme para o tempo especificado
@@ -177,6 +212,8 @@ public class Lembrar {
         arm.setPersistValue("Saida", "",this.context);
         arm.setPersistValue("dtRemFimAlmoco", "",this.context);
         arm.setPersistValue("dtRemSaida", "",this.context);
+        this.cancelarAlarme("retornoAlmoco");
+        this.cancelarAlarme("saida");
 
     }
 
@@ -223,6 +260,53 @@ public class Lembrar {
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public void alterarDatas(String pEntrada, String pInicio, String pFim) throws Exception {
+        try {
+            if (
+                    (pEntrada.isEmpty() && pInicio.isEmpty() && pFim.isEmpty())
+                            || (!pEntrada.isEmpty() && pInicio.isEmpty() && pFim.isEmpty())
+                            || (!pEntrada.isEmpty() && !pInicio.isEmpty() && pFim.isEmpty())
+                            || (!pEntrada.isEmpty() && !pInicio.isEmpty() && !pFim.isEmpty())
+            ) {
+
+
+                String DataAtual = new SimpleDateFormat("dd/MM/yyyy").format(new Date());
+                Date date;
+
+                if (!pEntrada.isEmpty()) {
+                    date = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").parse(DataAtual + " " + pEntrada);
+                    this.registrarEntrada(date);
+                } else {
+                    arm.setPersistValue("Entrada", "", this.context);
+                }
+
+                if (!pInicio.isEmpty()) {
+                    date = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").parse(DataAtual + " " + pInicio);
+                    this.registrarInicioAlmoco(date);
+                } else {
+                    arm.setPersistValue("InicioAlmoco", "", this.context);
+                    this.cancelarAlarme("retornoAlmoco");
+                }
+
+                if (!pFim.isEmpty()) {
+                    date = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").parse(DataAtual + " " + pFim);
+                    this.registrarFimAlmoco(date);
+                } else {
+                    arm.setPersistValue("FimAlmoco", "", this.context);
+                    this.cancelarAlarme("saida");
+                }
+
+
+            } else {
+                throw new Exception("Dadas não informadas corretamente");
+            }
+        } catch (Exception e) {
+            throw e;
+            //Log.i("NotForget-data", "erro: Lembrar.alterarDatas() -> " + e.getMessage());
+        }
+
+    }
 
 
 }

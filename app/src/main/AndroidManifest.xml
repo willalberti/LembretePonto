@@ -16,6 +16,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".view.Configurar"
+            android:label="Not forget - Configurações">
+        </activity>
+
         <receiver
             android:name=".domain.AlarmReceiver"
             android:process=":remote" />
