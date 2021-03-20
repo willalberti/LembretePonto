@@ -27,10 +27,10 @@ public class Lembrar {
 
     public void verificarSeDiaRegistrado() {
         String DataAtual = new SimpleDateFormat("dd/MM/yyyy").format(new Date());
-        //if(!arm.getPersistValue("tdata",this.context).equalsIgnoreCase(DataAtual)) {
+        if(!arm.getPersistValue("tdata",this.context).equalsIgnoreCase(DataAtual)) {
             arm.setPersistValue("tdata",new SimpleDateFormat("dd/MM/yyyy").format(new Date()),this.context);
             resetArmazenamento();
-        //}
+        }
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -149,8 +149,8 @@ public class Lembrar {
             Calendar c = Calendar.getInstance();
             c.setTime(formato.parse(arm.getPersistValue("dtInicioAlmocoTT", this.context)));
 
-            //c.add(Calendar.MINUTE, 58);
-            c.add(Calendar.SECOND, 10);
+            c.add(Calendar.MINUTE, 58);
+            //c.add(Calendar.SECOND, 10);
             //alarmMgr.set(AlarmManager.RTC_WAKEUP,  c.getTimeInMillis(), alarmIntent); //dtInicioAlmocoTT
             alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP,  c.getTimeInMillis(),1000*20, alarmIntent); //dtInicioAlmocoTT
 
@@ -189,8 +189,8 @@ public class Lembrar {
             c.setTime(formato.parse(arm.getPersistValue("dtEntradaTT", this.context)));
 
             //adiciona 8h e 58 min a data de entrada
-            //c.add(Calendar.MINUTE, 538);
-            c.add(Calendar.SECOND, 20);
+            c.add(Calendar.MINUTE, 538);
+            //c.add(Calendar.SECOND, 20);
 
 
             //programa o alarme para o tempo especificado
